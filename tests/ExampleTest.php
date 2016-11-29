@@ -10,13 +10,11 @@ class ExampleTest extends TestCase {
      *
      * @return void
      */
-    public function testBasicExample() {
-        $this->visit('/')
-            ->see('Laravel 5');
-    }
+
 
     public function testDatabase() {
-        $movie = factory(App\Movie::class, 10)->create();
-        $event = factory(App\Event::class, 10)->create();
+        //$movie = factory(App\Movie::class, 10)->create();
+        //$event = factory(App\Event::class, 10)->create();
+        $user = factory(App\User::class, 1)->create();
     }
 }

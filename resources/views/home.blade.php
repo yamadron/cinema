@@ -13,18 +13,21 @@
     <?php $counter = 1; ?>
     <div class="carousel-inner" role="listbox">
         @foreach($movies as $movie)
-            <div class="item {{ $counter == 1 ? 'active' : '' }}">
-                <img class="first-slide" src="/images/{{ $movie->highlight_image }}" alt="First slide">
+            @if($movie->highlight_image != '')
+                <div class="item {{ $counter == 1 ? 'active' : '' }}">
+                    <img class="first-slide" src="{{ url("movies/images/highlights/$movie->highlight_image") }}"
+                         alt="First slide">
 
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>{{ $movie->name }}.</h1>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>{{ $movie->name }}.</h1>
 
-                        <p>{{ $movie->description }}</p>
+                            <p>{{ $movie->lead }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php $counter++; ?>
+                <?php $counter++; ?>
+            @endif
         @endforeach
 
         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -44,13 +47,13 @@
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <a href="/movies/{{ $movie->id }}">
-                        <img src="/images/{{ $movie->poster }}" alt="...">
+                        <img src="{{ url("movies/images/$movie->poster") }}" alt="...">
                     </a>
 
                     <div class="caption">
                         <h3>{{ $movie->name }}</h3>
 
-                        <p>{{ $movie->description }}</p>
+                        <p>{{ $movie->lead }}</p>
                     </div>
                 </div>
             </div>
