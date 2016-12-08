@@ -24,10 +24,11 @@ $factory->define(App\Movie::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->realText(20),
         'date' => $faker->date(),
+        'lead' => $faker->realText(),
         'description' => $faker->realText(),
-        'poster' => 'arrival.jpg',
-        'highlight_image' => $faker->randomElement(['fantasticbeasts.jpg', 'transformers_final_standee.jpg', 'arrivalhighlight.jpg']),
-        'status' => $faker->randomElement(['coming', 'active', 'gone'])
+        'poster' => 'MV5BMTExMzU0ODcxNDheQTJeQWpwZ15BbWU4MDE1OTI4MzAy._V1_SY1000_CR0,0,640,1000_AL_.jpg',
+        'highlight_image' => 'ArrivalShip.png',
+        'status' => $faker->randomElement(['Coming', 'Active', 'Gone'])
     ];
 });
 
@@ -37,6 +38,6 @@ $factory->define(App\Event::class, function (Faker\Generator $faker) {
         'lead' => $faker->realText(200),
         'publish_date' => $faker->dateTime(),
         'body' => $faker->realText(1000),
-        'image' => 'doctorstrange.jpg'
+        'image' => 'GFGTEEEFPRG51479950028462.png'
     ];
 });

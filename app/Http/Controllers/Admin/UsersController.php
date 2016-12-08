@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use Gate;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,12 +13,13 @@ class UsersController extends Controller
 {
     public function index() {
 
-        $users = User::all();
+        $users = User::paginate(15);
 
         return view('admin.users.index', compact('users'));
     }
 
     public function create() {
+
         return view('admin.users.create');
     }
 
@@ -27,14 +29,14 @@ class UsersController extends Controller
             'email' => 'required',
             'password' => 'confirmed|required',
             'password_confirmation' => 'required',
-            'status' => 'required'
+            'privileges' => 'required'
         ]);
 
         $inputs = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'status' => $request->input('status'),
+            'privileges' => $request->input('privileges'),
         ];
 
         $user->create($inputs);
@@ -44,7 +46,7 @@ class UsersController extends Controller
 
     public function edit(User $user) {
 
-        return view('admin.users.profile', compact('user'));
+        return view('admin.users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user) {
@@ -53,14 +55,14 @@ class UsersController extends Controller
             'email' => 'required',
             'password' => 'confirmed|required',
             'password_confirmation' => 'required',
-            'status' => 'required'
+            'privileges' => 'required'
         ]);
 
         $inputs = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'status' => $request->input('status'),
+            'privileges' => $request->input('privileges'),
         ];
 
         $user->update($inputs);

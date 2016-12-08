@@ -30,10 +30,10 @@
             <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Confirm Password">
         </div>
         <div class="form-group">
-            <label for="status">Status</label>
-            <select class="form-control" id="status" name="status">
-                <option>Admin</option>
-                <option>User</option>
+            <label for="privileges">Privileges</label>
+            <select class="form-control" id="privileges" name="privileges">
+                <option {!! $user->privileges == 'Admin' ? "selected='selected'" : '' !!}>Admin</option>
+                <option {!! $user->privileges == 'User' ? "selected='selected'" : '' !!}>User</option>
             </select>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>

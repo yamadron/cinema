@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@showMovies');
+Route::get('/', 'HomeController@showContent');
 
 Route::get('/movies', 'MoviesController@index');
 Route::get('/movies/{movie}', 'MoviesController@show');
@@ -37,7 +37,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('admin/movies/{movie}/edit', 'Admin\MoviesController@edit');
     Route::patch('admin/movies/{movie}', 'Admin\MoviesController@update');
     Route::delete('admin/movies/{movie}', 'Admin\MoviesController@destroy');
+});
 
+Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     Route::get('admin/users', 'Admin\UsersController@index');
     Route::get('admin/users/create', 'Admin\UsersController@create');
     Route::post('admin/users', 'Admin\UsersController@store');

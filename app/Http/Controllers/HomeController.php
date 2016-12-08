@@ -10,7 +10,7 @@ use App\Http\Requests;
 
 class HomeController extends Controller
 {
-    public function showMovies() {
+    public function showContent() {
         $movies = Movie::take(3)->get();
         $events = Event::all()->sortByDesc('publish_date')->take(4);
 

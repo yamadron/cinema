@@ -19,7 +19,7 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->status }}</td>
+                    <td>{{ $user->privileges }}</td>
                     <td>
                         <a href="{{ url()->current() . '/' . $user->id }}/edit" class="btn btn-default" role="button">Edit</a>
                     </td>
@@ -34,5 +34,6 @@
             @endforeach
             </tbody>
         </table>
+        {{ $users->links() }}
     </div>
 @endsection

@@ -7,11 +7,12 @@ use App\Movie;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Storage;
+use DB;
 
-class MoviesController extends Controller
-{
+class MoviesController extends Controller {
     public function index() {
-        $movies = Movie::all();
+        $movies = Movie::paginate(15);
+        //$movies = DB::table('movies')->paginate(15);
 
         return view('admin.movies.index', compact('movies'));
     }
@@ -37,12 +38,16 @@ class MoviesController extends Controller
             'description' => $request->input('description'),
             'status' => $request->input('status'),
             'poster' => $request->file('poster')->getClientOriginalName(),
-            'highlight_image' => $request->file('highlight_image')->getClientOriginalName()
+            'highlight_image' => $request->file('highlight_image')
         ];
 
         Storage::put("public/movies/" . $inputs['poster'], file_get_contents($request->file('poster')->getRealPath()));
-        Storage::put("public/movies/highlights/" . $inputs['highlight_image'], file_get_contents($request->file('highlight_image')->getRealPath()));
-
+        if ($inputs['highlight_image'] != null) {
+            $inputs['highlight_image'] = $request->file('highlight_image')->getClientOriginalName();
+            Storage::put("public/movies/highlights/" . $inputs['highlight_image'], file_get_contents($request->file('highlight_image')->getRealPath()));
+        } else {
+            $inputs['highlight_image'] = '';
+        }
         $movie->create($inputs);
 
         return redirect('admin/movies');

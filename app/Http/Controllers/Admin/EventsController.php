@@ -12,7 +12,7 @@ use Storage;
 class EventsController extends Controller
 {
     public function index() {
-        $events = Event::all()->sortByDesc('publish_date');
+        $events = Event::orderBy('publish_date', 'desc')->paginate(15);
 
         return view('admin.events.index', compact('events'));
     }

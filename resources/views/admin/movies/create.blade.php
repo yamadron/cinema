@@ -14,19 +14,19 @@
         {{ csrf_field() }}
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+            <input type="text" name="name" class="form-control" id="name" placeholder="Name" value="{{ old("name") }}">
         </div>
         <div class="form-group">
             <label for="date">Date</label>
-            <input type="datetime" name="date" class="form-control" id="date" placeholder="Date">
+            <input type="datetime" name="date" class="form-control" id="date" placeholder="Date" value="{{ old("date") }}">
         </div>
         <div class="form-group">
             <label for="lead">Lead text</label>
-            <textarea class="form-control" name="lead" id="lead" placeholder="Lead Text"></textarea>
+            <textarea class="form-control" name="lead" id="lead" placeholder="Lead Text">{{ old("lead") }}</textarea>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" name="description" id="description" placeholder="Description"></textarea>
+            <textarea class="form-control" name="description" id="description" placeholder="Description">{{ old("description") }}</textarea>
             <script>
                 CKEDITOR.replace('description');
             </script>

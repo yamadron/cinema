@@ -22,9 +22,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Settings</a></li>
+                @can('user-privileges', 'Admin')
                 <li><a href="{{ url("admin/users/") . "/" . Auth::user()->id . "/edit" }}">Profile</a></li>
+                @endcan
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         {{ Auth::user()->name }} <span class="caret"></span>
@@ -50,7 +50,9 @@
                 <li {{ url()->current() == url('admin/movies') ? "class=active" : '' }}><a href="{{ url('admin/movies')  }}">Movies</a></li>
                 <li {{ url()->current() == url('admin/events') ? "class=active" : '' }}><a href="{{ url('admin/events')  }}">Events</a></li>
                 <li {{ url()->current() == url('admin/contact') ? "class=active" : '' }}><a href="{{ url('admin/contact')  }}">Contact</a></li>
+                @can('user-privileges', 'Admin')
                 <li {{ url()->current() == url('admin/users') ? "class=active" : '' }}><a href="{{ url('admin/users')  }}">Users</a></li>
+                @endcan
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
