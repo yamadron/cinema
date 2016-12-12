@@ -35,8 +35,8 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
+            <form class="navbar-form navbar-right" method="GET" action="{{ url("admin/search") }}">
+                <input type="text" name="s" class="form-control" placeholder="Search...">
             </form>
         </div>
     </div>

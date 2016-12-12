@@ -37,6 +37,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('admin/movies/{movie}/edit', 'Admin\MoviesController@edit');
     Route::patch('admin/movies/{movie}', 'Admin\MoviesController@update');
     Route::delete('admin/movies/{movie}', 'Admin\MoviesController@destroy');
+
+    Route::get('admin/search', 'Admin\OverviewController@search');
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {

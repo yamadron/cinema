@@ -16,4 +16,11 @@ class OverviewController extends Controller {
 
         return view('admin.welcome', compact('movies', 'events'));
     }
+
+    public function search(Request $request) {
+        $word = $request->input('s');
+        $events = Event::search($word)->paginate(15);
+
+        return view('admin.search', compact('events'));
+    }
 }

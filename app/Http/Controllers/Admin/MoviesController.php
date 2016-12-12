@@ -12,7 +12,6 @@ use DB;
 class MoviesController extends Controller {
     public function index() {
         $movies = Movie::paginate(15);
-        //$movies = DB::table('movies')->paginate(15);
 
         return view('admin.movies.index', compact('movies'));
     }
