@@ -7,13 +7,36 @@ use App\Movie;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Storage;
-use DB;
+use Route;
+use Response;
 
 class MoviesController extends Controller {
+
+    function __construct() {
+
+    }
+
     public function index() {
         $movies = Movie::paginate(15);
 
-        return view('admin.movies.index', compact('movies'));
+        if (Route::getCurrentRoute()->getPrefix() == '/api/v1') {
+            return $movies;
+        } else {
+            return view('admin.movies.index', compact('movies'));
+        }
+    }
+
+    public function show($id) {
+        $movie = Movie::find($id);
+        if (!$movie) {
+            return Response::json([
+                'error' => [
+                    'message' => "Movie does not exist"
+                ]
+            ], 404);
+        } else {
+            return $movie;
+        }
     }
 
     public function create() {
@@ -56,7 +79,7 @@ class MoviesController extends Controller {
         return view('admin.movies.edit', compact('movie'));
     }
 
-    public function update(Request $request, Movie $movie) {
+    public function update(Request $request, Movie $movies) {
 
         $this->validate($request, [
             'name' => 'required',
@@ -78,13 +101,13 @@ class MoviesController extends Controller {
 
         Storage::put("public/movies/" . $inputs['poster'], file_get_contents($request->file('poster')->getRealPath()));
 
-        $movie->update($inputs);
+        $movies->update($inputs);
 
         return back();
     }
 
-    public function destroy(Movie $movie) {
-        $movie->delete();
+    public function destroy(Movie $movies) {
+        $movies->delete();
 
         return redirect('admin/movies');
     }

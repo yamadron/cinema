@@ -50,6 +50,13 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     Route::delete('admin/users/{user}', 'Admin\UsersController@destroy');
 });
 
+// API routes
+
+Route::group(['prefix' => 'api/v1'], function() {
+    Route::resource('movies', 'Admin\MoviesController');
+
+});
+
 
 Route::get('events/images/{image}', function($filename) {
     $path = storage_path() . '\app\public\events\\' . $filename;
