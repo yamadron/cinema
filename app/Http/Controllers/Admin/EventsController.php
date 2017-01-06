@@ -8,13 +8,34 @@ use App\Event;
 use App\Http\Requests;
 use Illuminate\Support\Facades\File;
 use Storage;
+use Route;
+use Response;
 
 class EventsController extends Controller
 {
     public function index() {
         $events = Event::orderBy('publish_date', 'desc')->paginate(15);
 
+        if (Route::getCurrentRoute()->getPrefix() == '/api/v1') {
+            return $events;
+        } else {
+            return view('admin.events.index', compact('events'));
+        }
+
         return view('admin.events.index', compact('events'));
+    }
+
+    public function show($event) {
+        $event = Event::find($event);
+        if (!$event) {
+            return Response::json([
+                'error' => [
+                    'message' => "Event does not exist"
+                ]
+            ], 404);
+        } else {
+            return $event;
+        }
     }
 
     public function create() {
@@ -41,6 +62,8 @@ class EventsController extends Controller
         Storage::put("public/events/" . $inputs['image'], file_get_contents($request->file('image')->getRealPath()));
 
         $event->create($inputs);
+
+        session()->flash('confirm', 'Event has been added.');
 
         return redirect('admin/events');
     }
@@ -71,12 +94,23 @@ class EventsController extends Controller
 
         $event->update($inputs);
 
+        session()->flash('confirm', 'Event has been updated.');
+
         return back();
     }
 
     public function destroy(Event $event) {
         $event->delete();
 
+        session()->flash('confirm-delete', 'Event has been deleted.');
+
         return redirect('admin/events');
+    }
+
+    public function search(Request $request) {
+        $word = $request->input('s');
+        $events = Event::search($word)->paginate(15);
+
+        return view('admin.events.index', compact('events'));
     }
 }

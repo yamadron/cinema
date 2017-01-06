@@ -2,6 +2,9 @@
 
 @section('content')
     <h2 class="sub-header">Edit Event</h2>
+    @if(Session::has('confirm'))
+        <div class="alert alert-success" role="alert">{{ Session::get('confirm') }}</div>
+    @endif
     @if(count($errors))
         <div class="alert alert-danger" role="alert">
             @foreach($errors->all() as $error)

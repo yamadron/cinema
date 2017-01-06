@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use Route;
+use Response;
 
 class UsersController extends Controller
 {
@@ -15,7 +17,24 @@ class UsersController extends Controller
 
         $users = User::paginate(15);
 
-        return view('admin.users.index', compact('users'));
+        if (Route::getCurrentRoute()->getPrefix() == '/api/v1') {
+            return $users;
+        } else {
+            return view('admin.users.index', compact('users'));
+        }
+    }
+
+    public function show($user) {
+        $user = User::find($user);
+        if (!$user) {
+            return Response::json([
+                'error' => [
+                    'message' => "User does not exist"
+                ]
+            ], 404);
+        } else {
+            return $user;
+        }
     }
 
     public function create() {
@@ -40,6 +59,8 @@ class UsersController extends Controller
         ];
 
         $user->create($inputs);
+
+        session()->flash('confirm', 'User has been added.');
 
         return redirect('admin/users');
     }
@@ -67,11 +88,15 @@ class UsersController extends Controller
 
         $user->update($inputs);
 
+        session()->flash('confirm', 'User has been updated.');
+
         return back();
     }
 
     public function destroy(User $user) {
         $user->delete();
+
+        session()->flash('confirm-delete', 'User has been deleted.');
 
         return redirect('admin/users');
     }

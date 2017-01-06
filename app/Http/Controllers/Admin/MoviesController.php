@@ -26,8 +26,8 @@ class MoviesController extends Controller {
         }
     }
 
-    public function show($id) {
-        $movie = Movie::find($id);
+    public function show($movie) {
+        $movie = Movie::find($movie);
         if (!$movie) {
             return Response::json([
                 'error' => [
@@ -72,6 +72,8 @@ class MoviesController extends Controller {
         }
         $movie->create($inputs);
 
+        session()->flash('confirm', 'Movie has been added.');
+
         return redirect('admin/movies');
     }
 
@@ -79,7 +81,7 @@ class MoviesController extends Controller {
         return view('admin.movies.edit', compact('movie'));
     }
 
-    public function update(Request $request, Movie $movies) {
+    public function update(Request $request, Movie $movie) {
 
         $this->validate($request, [
             'name' => 'required',
@@ -101,14 +103,25 @@ class MoviesController extends Controller {
 
         Storage::put("public/movies/" . $inputs['poster'], file_get_contents($request->file('poster')->getRealPath()));
 
-        $movies->update($inputs);
+        $movie->update($inputs);
+
+        session()->flash('confirm', 'Movie has been updated.');
 
         return back();
     }
 
-    public function destroy(Movie $movies) {
-        $movies->delete();
+    public function destroy(Movie $movie) {
+        $movie->delete();
+
+        session()->flash('confirm-delete', 'Movie has been deleted.');
 
         return redirect('admin/movies');
+    }
+
+    public function search(Request $request) {
+        $word = $request->input('s');
+        $movies = Movie::search($word)->paginate(15);
+
+        return view('admin.movies.index', compact('movies'));
     }
 }

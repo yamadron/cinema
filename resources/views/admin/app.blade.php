@@ -5,7 +5,12 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/css/main.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/ckeditor/ckeditor.js"></script>
+    <script src="/js/main.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -35,8 +40,20 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right" method="GET" action="{{ url("admin/search") }}">
-                <input type="text" name="s" class="form-control" placeholder="Search...">
+            @if(str_contains(url()->current(), 'events'))
+                <?php
+                $link = "admin/events/search";
+                $placeholder = "Search event...";
+                ?>
+            @else
+                <?php
+                $link = "admin/movies/search";
+                $placeholder = "Search movie...";
+                ?>
+            @endif
+            <form class="navbar-form navbar-right" method="GET"
+                  action="{{  url($link) }}">
+                <input type="text" name="s" class="form-control" placeholder="{{ $placeholder }}">
             </form>
         </div>
     </div>
@@ -46,12 +63,17 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li {{ url()->current() == url('admin/welcome') ? "class=active" : '' }}><a href="{{ url('admin/welcome')  }}">Overview <span class="sr-only">(current)</span></a></li>
-                <li {{ url()->current() == url('admin/movies') ? "class=active" : '' }}><a href="{{ url('admin/movies')  }}">Movies</a></li>
-                <li {{ url()->current() == url('admin/events') ? "class=active" : '' }}><a href="{{ url('admin/events')  }}">Events</a></li>
-                <li {{ url()->current() == url('admin/contact') ? "class=active" : '' }}><a href="{{ url('admin/contact')  }}">Contact</a></li>
+                <li {{ url()->current() == url('admin/welcome') ? "class=active" : '' }}><a
+                            href="{{ url('admin/welcome')  }}">Overview <span class="sr-only">(current)</span></a></li>
+                <li {{ url()->current() == url('admin/movies') ? "class=active" : '' }}><a
+                            href="{{ url('admin/movies')  }}">Movies</a></li>
+                <li {{ url()->current() == url('admin/events') ? "class=active" : '' }}><a
+                            href="{{ url('admin/events')  }}">Events</a></li>
+                <li {{ url()->current() == url('admin/contact') ? "class=active" : '' }}><a
+                            href="{{ url('admin/contact')  }}">Contact</a></li>
                 @can('user-privileges', 'Admin')
-                <li {{ url()->current() == url('admin/users') ? "class=active" : '' }}><a href="{{ url('admin/users')  }}">Users</a></li>
+                <li {{ url()->current() == url('admin/users') ? "class=active" : '' }}><a
+                            href="{{ url('admin/users')  }}">Users</a></li>
                 @endcan
             </ul>
         </div>
@@ -60,9 +82,6 @@
         </div>
     </div>
 </div>
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
+
 </body>
 </html>

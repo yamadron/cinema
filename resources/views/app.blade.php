@@ -6,6 +6,10 @@
     <link href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
     <link href="/css/carousel.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
 </head>
 <body>
 <div class="navbar-wrapper" @yield('not_carousel')>
@@ -44,9 +48,6 @@
         @yield('content')
     </div>
 </div>
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
+
 </body>
 </html>

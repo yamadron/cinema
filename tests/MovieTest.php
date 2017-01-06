@@ -13,7 +13,7 @@ class MovieTest extends TestCase {
 
 
     public function testDatabase() {
-        $movie = factory(App\Movie::class, 40)->create();
+        //$movie = factory(App\Movie::class, 40)->create();
         $event = factory(App\Event::class, 40)->create();
         //$user = factory(App\User::class, 1)->create();
     }

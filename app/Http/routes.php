@@ -38,7 +38,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('admin/movies/{movie}', 'Admin\MoviesController@update');
     Route::delete('admin/movies/{movie}', 'Admin\MoviesController@destroy');
 
-    Route::get('admin/search', 'Admin\OverviewController@search');
+    Route::get('admin/events/search', 'Admin\EventsController@search');
+    Route::get('admin/movies/search', 'Admin\MoviesController@search');
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {
@@ -53,7 +54,29 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 // API routes
 
 Route::group(['prefix' => 'api/v1'], function() {
-    Route::resource('movies', 'Admin\MoviesController');
+
+    Route::get('movies', 'Admin\MoviesController@index');
+    Route::get('movies/{movie}', 'Admin\MoviesController@show');
+
+    Route::get('events', 'Admin\EventsController@index');
+    Route::get('events/{event}', 'Admin\EventsController@show');
+
+    Route::get('users', 'Admin\UsersController@index');
+    Route::get('users/{user}', 'Admin\UsersController@show');
+
+    Route::group(['middleware' => ['auth.basic']], function() {
+        Route::post('movies', 'Admin\MoviesController@store');
+        Route::patch('movies/{movie}', 'Admin\MoviesController@update');
+        Route::delete('movies/{movie}', 'Admin\MoviesController@destroy');
+
+        Route::post('events', 'Admin\EventsController@store');
+        Route::patch('events/{event}', 'Admin\EventsController@update');
+        Route::delete('events/{event}', 'Admin\EventsController@destroy');
+
+        Route::post('users', 'Admin\UsersController@store');
+        Route::patch('users/{user}', 'Admin\UsersController@update');
+        Route::delete('users/{user}', 'Admin\UsersController@destroy');
+    });
 
 });
 
