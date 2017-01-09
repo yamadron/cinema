@@ -63,7 +63,7 @@ class EventsController extends Controller
 
         $event->create($inputs);
 
-        session()->flash('confirm', 'Event has been added.');
+        session()->flash('confirm', 'Event has been <b>added</b>.');
 
         return redirect('admin/events');
     }
@@ -94,7 +94,7 @@ class EventsController extends Controller
 
         $event->update($inputs);
 
-        session()->flash('confirm', 'Event has been updated.');
+        session()->flash('confirm', 'Event has been <b>updated</b>.');
 
         return back();
     }
@@ -102,7 +102,7 @@ class EventsController extends Controller
     public function destroy(Event $event) {
         $event->delete();
 
-        session()->flash('confirm-delete', 'Event has been deleted.');
+        session()->flash('confirm-delete', 'Event has been <b>deleted</b>.');
 
         return redirect('admin/events');
     }

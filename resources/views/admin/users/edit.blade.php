@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="sub-header">Edit User</h2>
     @if(Session::has('confirm'))
-        <div class="alert alert-success" role="alert">{{ Session::get('confirm') }}</div>
+        <div class="alert alert-success" role="alert">{!! Session::get('confirm') !!}</div>
     @endif
     @if(count($errors))
         <div class="alert alert-danger" role="alert">
@@ -13,7 +13,8 @@
             @endforeach
         </div>
     @endif
-    <form action="{{ url('admin/users', [$user->id]) }}" method="POST">
+
+    <form action="{{ str_contains(url()->current(), 'profile') ? url('admin/profile') : url('admin/users', [$user->id]) }}" method="POST">
         {{ method_field('PATCH') }}
         {{ csrf_field() }}
         <div class="form-group">
@@ -22,7 +23,8 @@
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="{{ $user->email }}">
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                   value="{{ $user->email }}">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
@@ -30,8 +32,10 @@
         </div>
         <div class="form-group">
             <label for="password_confirmation">Confirm Password</label>
-            <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Confirm Password">
+            <input type="password" name="password_confirmation" class="form-control" id="password_confirmation"
+                   placeholder="Confirm Password">
         </div>
+        @can('user-privileges', 'Admin')
         <div class="form-group">
             <label for="privileges">Privileges</label>
             <select class="form-control" id="privileges" name="privileges">
@@ -39,6 +43,7 @@
                 <option {!! $user->privileges == 'User' ? "selected='selected'" : '' !!}>User</option>
             </select>
         </div>
+        @endcan
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 @endsection

@@ -72,7 +72,7 @@ class MoviesController extends Controller {
         }
         $movie->create($inputs);
 
-        session()->flash('confirm', 'Movie has been added.');
+        session()->flash('confirm', 'Movie has been <b>added</b>.');
 
         return redirect('admin/movies');
     }
@@ -105,7 +105,7 @@ class MoviesController extends Controller {
 
         $movie->update($inputs);
 
-        session()->flash('confirm', 'Movie has been updated.');
+        session()->flash('confirm', 'Movie has been <b>updated</b>.');
 
         return back();
     }
@@ -113,7 +113,7 @@ class MoviesController extends Controller {
     public function destroy(Movie $movie) {
         $movie->delete();
 
-        session()->flash('confirm-delete', 'Movie has been deleted.');
+        session()->flash('confirm-delete', 'Movie has been <b>deleted</b>.');
 
         return redirect('admin/movies');
     }

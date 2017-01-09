@@ -15,7 +15,6 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        //dd(!\Auth::user()->isAdmin());
         if (!\Auth::user()->isAdmin()) {
             if ($request->ajax()) {
                 return response('Admin account required.', 401);

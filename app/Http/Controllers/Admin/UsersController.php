@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use Auth;
 use Route;
 use Response;
 
-class UsersController extends Controller
-{
+class UsersController extends Controller {
     public function index() {
 
         $users = User::paginate(15);
@@ -60,13 +60,15 @@ class UsersController extends Controller
 
         $user->create($inputs);
 
-        session()->flash('confirm', 'User has been added.');
+        session()->flash('confirm', 'User has been <b>added</b>.');
 
         return redirect('admin/users');
     }
 
     public function edit(User $user) {
-
+        if (str_contains(url()->current(), 'profile')) {
+            $user = Auth::user();
+        }
         return view('admin.users.edit', compact('user'));
     }
 
@@ -86,9 +88,13 @@ class UsersController extends Controller
             'privileges' => $request->input('privileges'),
         ];
 
+        if (str_contains(url()->current(), 'profile')) {
+            $user = Auth::user();
+        }
+
         $user->update($inputs);
 
-        session()->flash('confirm', 'User has been updated.');
+        session()->flash('confirm', 'User has been <b>updated</b>.');
 
         return back();
     }
@@ -96,7 +102,7 @@ class UsersController extends Controller
     public function destroy(User $user) {
         $user->delete();
 
-        session()->flash('confirm-delete', 'User has been deleted.');
+        session()->flash('confirm-delete', 'User has been <b>deleted</b>.');
 
         return redirect('admin/users');
     }

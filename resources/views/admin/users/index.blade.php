@@ -3,10 +3,10 @@
 @section('content')
     <h2 class="sub-header">Users</h2>
     @if(Session::has('confirm'))
-        <div class="alert alert-success" role="alert">{{ Session::get('confirm') }}</div>
+        <div class="alert alert-success" role="alert">{!! Session::get('confirm') !!}</div>
     @endif
     @if(Session::has('confirm-delete'))
-        <div class="alert alert-success" role="alert">{{ Session::get('confirm-delete') }}</div>
+        <div class="alert alert-success" role="alert">{!! Session::get('confirm-delete') !!}</div>
     @endif
     <a href="{{ url()->current() }}/create" class="btn btn-primary" role="button">Add User</a>
     <div class="table-responsive">
@@ -30,16 +30,18 @@
                         <a href="{{ url()->current() . '/' . $user->id }}/edit" class="btn btn-default" role="button">Edit</a>
                     </td>
                     <td>
-                        <form action="{{ url('admin/users', [$user->id]) }}" method="POST">
+                        <form action="{{ url('admin/users', [$user->id]) }}" method="POST" class="formfield{{ $user->id }}">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger delete-btn" data-toggle="modal" data-modal-type="confirm"
+                            data-target="#gridSystemModalLabel">Delete</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+        @include('admin.confirmwindow')
         {{ $users->links() }}
     </div>
 @endsection

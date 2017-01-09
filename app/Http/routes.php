@@ -40,6 +40,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('admin/events/search', 'Admin\EventsController@search');
     Route::get('admin/movies/search', 'Admin\MoviesController@search');
+
+    Route::get('admin/profile/edit', 'Admin\UsersController@edit');
+    Route::patch('admin/profile', 'Admin\UsersController@update');
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {

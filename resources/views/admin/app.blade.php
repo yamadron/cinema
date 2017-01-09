@@ -27,9 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                @can('user-privileges', 'Admin')
-                <li><a href="{{ url("admin/users/") . "/" . Auth::user()->id . "/edit" }}">Profile</a></li>
-                @endcan
+                <li {{ activateCategory('users/'. Auth::user()->id . '/edit') }}><a href="{{ url("admin/profile/edit") }}">Profile</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         {{ Auth::user()->name }} <span class="caret"></span>
@@ -63,16 +61,16 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li {{ url()->current() == url('admin/welcome') ? "class=active" : '' }}><a
+                <li {{ activateCategory('welcome') }}><a
                             href="{{ url('admin/welcome')  }}">Overview <span class="sr-only">(current)</span></a></li>
-                <li {{ url()->current() == url('admin/movies') ? "class=active" : '' }}><a
+                <li {{ activateCategory('movies') }}><a
                             href="{{ url('admin/movies')  }}">Movies</a></li>
-                <li {{ url()->current() == url('admin/events') ? "class=active" : '' }}><a
+                <li {{ activateCategory('events') }}><a
                             href="{{ url('admin/events')  }}">Events</a></li>
-                <li {{ url()->current() == url('admin/contact') ? "class=active" : '' }}><a
+                <li {{ activateCategory('contact') }}><a
                             href="{{ url('admin/contact')  }}">Contact</a></li>
                 @can('user-privileges', 'Admin')
-                <li {{ url()->current() == url('admin/users') ? "class=active" : '' }}><a
+                <li {{ activateCategory('users') }}><a
                             href="{{ url('admin/users')  }}">Users</a></li>
                 @endcan
             </ul>

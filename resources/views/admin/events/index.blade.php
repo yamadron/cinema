@@ -3,10 +3,10 @@
 @section('content')
     <h2 class="sub-header">Events</h2>
     @if(Session::has('confirm'))
-        <div class="alert alert-success" role="alert">{{ Session::get('confirm') }}</div>
+        <div class="alert alert-success" role="alert">{!! Session::get('confirm') !!}</div>
     @endif
     @if(Session::has('confirm-delete'))
-        <div class="alert alert-success" role="alert">{{ Session::get('confirm-delete') }}</div>
+        <div class="alert alert-success" role="alert">{!! Session::get('confirm-delete') !!}</div>
     @endif
     <a href="{{ url()->current() }}/create" class="btn btn-primary mb-1" role="button" style="margin-bottom: 10px;">Add
         Event</a>
