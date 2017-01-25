@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li {{ activateCategory('users/'. Auth::user()->id . '/edit') }}><a href="{{ url("admin/profile/edit") }}">Profile</a></li>
+                <li {{ activateCategory('profile') }}><a href="{{ url("admin/profile/edit") }}">Profile</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         {{ Auth::user()->name }} <span class="caret"></span>

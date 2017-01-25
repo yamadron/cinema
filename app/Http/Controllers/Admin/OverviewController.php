@@ -17,5 +17,7 @@ class OverviewController extends Controller {
         return view('admin.welcome', compact('movies', 'events'));
     }
 
-
+    public function contact() {
+        return view('admin.contact');
+    }
 }

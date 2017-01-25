@@ -76,8 +76,8 @@ class UsersController extends Controller {
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
-            'password' => 'confirmed|required',
-            'password_confirmation' => 'required',
+            'password' => 'confirmed',
+            'password_confirmation' => '',
             'privileges' => 'required'
         ]);
 

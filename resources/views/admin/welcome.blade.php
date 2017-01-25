@@ -7,6 +7,9 @@
         </h1>
     </div>
     <div class="row">
+        @if(Session::has('confirm-delete'))
+            <div class="alert alert-success" role="alert">{!! Session::get('confirm-delete') !!}</div>
+        @endif
         @foreach($movies as $movie)
             <div class="col-xs-6 col-md-4">
                 <div class="thumbnail">
@@ -21,10 +24,13 @@
                                 role="button">Edit</a>
 
                             <form action="{{ url('admin/movies', [$movie->id]) }}" method="POST"
-                                  style="display: inline-block;">
+                                  style="display: inline-block;" class="formfield{{ $movie->id }}">
                                 {{ method_field('DELETE') }}
                                 {{ csrf_field() }}
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger delete-btn" data-toggle="modal"
+                                        data-modal-type="confirm"
+                                        data-target="#gridSystemModalLabel">Delete
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -47,14 +53,18 @@
                             role="button">Edit</a>
 
                         <form action="{{ url('admin/events', [$event->id]) }}" method="POST"
-                              style="display: inline-block;">
+                              style="display: inline-block;" class="formfield{{ $event->id }}">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger delete-btn" data-toggle="modal"
+                                    data-modal-type="confirm"
+                                    data-target="#gridSystemModalLabel">Delete
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
         @endforeach
+        @include('admin.confirmwindow')
     </div>
 @endsection

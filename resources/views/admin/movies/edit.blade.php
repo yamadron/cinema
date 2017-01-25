@@ -47,6 +47,10 @@
             <label for="poster">Poster</label>
             <input type="file" name="poster" id="poster" placeholder="Poster">
         </div>
+        <div class="form-group">
+            <label for="highlight">Highlight Image</label>
+            <input type="file" name="highlight_image" id="highlight" placeholder="Highlight Image">
+        </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 @endsection

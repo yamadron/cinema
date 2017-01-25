@@ -64,7 +64,7 @@
             <div class="col-xs-6 col-md-3">
                 <div class="thumbnail">
                     <a href="/events/{{ $event->id }}">
-                        <img src="{{ url('events/images/' . $event->image) }}" alt="...">
+                        <img src="{{ url('events/images/' . $event->image) }}" alt="..." style="max-height: 170px;">
                     </a>
 
                     <div class="caption">

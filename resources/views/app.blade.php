@@ -3,7 +3,6 @@
 <head>
     <title>Laravel</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
     <link href="/css/carousel.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
     <!-- Placed at the end of the document so the pages load faster -->

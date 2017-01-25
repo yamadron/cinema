@@ -16,4 +16,8 @@ class HomeController extends Controller
 
         return view('home', compact('movies', 'events'));
     }
+
+    public function contact() {
+        return view('contact');
+    }
 }

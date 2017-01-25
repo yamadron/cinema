@@ -19,10 +19,13 @@ Route::get('/movies/{movie}', 'MoviesController@show');
 Route::get('/events', 'EventsController@index');
 Route::get('/events/{event}', 'EventsController@show');
 
+Route::get('contact', 'HomeController@contact');
+
 Route::auth();
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('admin/welcome', 'Admin\OverviewController@welcome');
+    Route::get('admin/contact', 'Admin\OverviewController@contact');
 
     Route::get('admin/events', 'Admin\EventsController@index');
     Route::get('admin/events/create', 'Admin\EventsController@create');

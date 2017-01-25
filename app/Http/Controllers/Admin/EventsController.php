@@ -79,18 +79,19 @@ class EventsController extends Controller
             'publish_date' => 'required',
             'lead' => 'required',
             'body' => 'required',
-            'image' => 'required',
         ]);
 
         $inputs = [
             'headline' => $request->input('headline'),
             'publish_date' => $request->input('publish_date'),
             'lead' => $request->input('lead'),
-            'body' => $request->input('body'),
-            'image' => $request->file('image')->getClientOriginalName()
+            'body' => $request->input('body')
         ];
 
-        Storage::put("public/events/" . $inputs['image'], file_get_contents($request->file('image')->getRealPath()));
+        if($request->file('image') != null) {
+            $inputs['image'] = $request->file('image')->getClientOriginalName();
+            Storage::put("public/events/" . $inputs['image'], file_get_contents($request->file('image')->getRealPath()));
+        }
 
         $event->update($inputs);
 
@@ -104,7 +105,7 @@ class EventsController extends Controller
 
         session()->flash('confirm-delete', 'Event has been <b>deleted</b>.');
 
-        return redirect('admin/events');
+        return back();
     }
 
     public function search(Request $request) {

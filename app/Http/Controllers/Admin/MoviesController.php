@@ -60,16 +60,15 @@ class MoviesController extends Controller {
             'description' => $request->input('description'),
             'status' => $request->input('status'),
             'poster' => $request->file('poster')->getClientOriginalName(),
-            'highlight_image' => $request->file('highlight_image')
         ];
 
         Storage::put("public/movies/" . $inputs['poster'], file_get_contents($request->file('poster')->getRealPath()));
-        if ($inputs['highlight_image'] != null) {
+
+        if ($request->file('highlight_image') != null) {
             $inputs['highlight_image'] = $request->file('highlight_image')->getClientOriginalName();
             Storage::put("public/movies/highlights/" . $inputs['highlight_image'], file_get_contents($request->file('highlight_image')->getRealPath()));
-        } else {
-            $inputs['highlight_image'] = '';
         }
+
         $movie->create($inputs);
 
         session()->flash('confirm', 'Movie has been <b>added</b>.');
@@ -89,7 +88,6 @@ class MoviesController extends Controller {
             'lead' => 'required',
             'description' => 'required',
             'status' => 'required',
-            'poster' => 'required'
         ]);
 
         $inputs = [
@@ -98,10 +96,17 @@ class MoviesController extends Controller {
             'lead' => $request->input('lead'),
             'description' => $request->input('description'),
             'status' => $request->input('status'),
-            'poster' => $request->file('poster')->getClientOriginalName()
         ];
 
-        Storage::put("public/movies/" . $inputs['poster'], file_get_contents($request->file('poster')->getRealPath()));
+        if($request->file('poster') != null) {
+            $inputs['poster'] = $request->file('poster')->getClientOriginalName();
+            Storage::put("public/movies/" . $inputs['poster'], file_get_contents($request->file('poster')->getRealPath()));
+        }
+
+        if ($request->file('highlight_image') != null) {
+            $inputs['highlight_image'] = $request->file('highlight_image')->getClientOriginalName();
+            Storage::put("public/movies/highlights/" . $inputs['highlight_image'], file_get_contents($request->file('highlight_image')->getRealPath()));
+        }
 
         $movie->update($inputs);
 
@@ -115,7 +120,7 @@ class MoviesController extends Controller {
 
         session()->flash('confirm-delete', 'Movie has been <b>deleted</b>.');
 
-        return redirect('admin/movies');
+        return back();
     }
 
     public function search(Request $request) {
