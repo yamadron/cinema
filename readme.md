@@ -27,4 +27,4 @@ For users:
 - /api/v1/users/{user} (PATCH)
 - /api/v1/users/{user} (DELETE)
 
-Work in progress for additional features.
+Work in progress.
